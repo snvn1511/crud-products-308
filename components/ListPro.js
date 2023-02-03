@@ -34,10 +34,39 @@ const ListPro = (props) => {
 
     const renderSP = ({ item }) => {
         console.log(item);
-        return (
 
+        const XoaSP = ()=>{
+            // if(! confirm ('Có đồng ý xóa không?') )
+            //     return; 
+    
+            let url_api = 'https://63db6922a3ac95cec5a10e24.mockapi.io/demo-api/sanpham/' + item.id;
+    
+            fetch(url_api , {
+                method: 'DELETE', // POST: Thêm mới, PUT: Sửa, DELETE: xóa, GET: lấy thông tin
+                headers: { // Định dạng dữ liệu gửi đi
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                },
+            })
+            .then ( (response )=>{
+                console.log(response.status);
+                // nếu status là 200 thì là xóa thành công
+                if(response.status==200)
+                alert("Xóa thành công");
+            
+            })
+            .catch( (err)=>{  // catch để bắt lỗi ngoại lệ
+                console.log(err);
+            }) ;
+        }
+
+        return (
             <View>
                 <Text>Tên sp: {item.name} - giá: {item.price}</Text>
+                <Button onPress={ XoaSP } title="Xóa" />
+                 
+                
+
             </View>
         );
 
@@ -54,6 +83,8 @@ const ListPro = (props) => {
         return unsubscribe;
     }, [props.navigation]);
 
+
+    
 
 
     return (
