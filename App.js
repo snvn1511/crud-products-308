@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ListPro from './components/ListPro';
+import AddPro from './components/AddPro';
 
-export default function App() {
+
+// tạo stack để quản lý màn hình
+const stackMain = createNativeStackNavigator();
+
+const App = () => {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    // Bước 3: Định nghĩa Navigation
+    //Tình huống 1: App chính chỉ có Nav
+    <NavigationContainer>
+      <stackMain.Navigator initialRouteName='ListPro'>
+        <stackMain.Screen name='ListPro' component={ListPro} options={{ title: 'Danh sách SP' }} />
+        <stackMain.Screen name='AddPro' component={AddPro} options={{ title: 'Thêm SP' }} />
+        {/* viết tiếp các màn hình khác vào đây */}
+      </stackMain.Navigator>
+    </NavigationContainer>
+  )
 }
+export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+
